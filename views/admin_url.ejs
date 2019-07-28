@@ -26,7 +26,19 @@ html, body, #container {
 
   <body>
     <h1>Results of POLL</h1>
-  <!--- SCRIPT TO DRAW CHART- MOVE THIS TO EXTERNAL FILE/MODULE-->
+
+    <div>
+
+      <%= pollOptions[0].name %>
+      <%= pollOptions[0].count %>
+      <%= pollOptions[1].name %>
+      <%= pollOptions[1].count %>
+
+    </div>
+    <div id= container>
+    </div>
+
+  <!--- SCRIPT TO DRAW CHART- MOVE THIS TO EXTERNAL FILE/MODULE ?-->
     <script>
       anychart.onDocumentReady(function () {
           // create column chart
@@ -38,7 +50,7 @@ html, body, #container {
           // set chart title text settings
           chart.title('Top 10 Cosmetic Products by Revenue');
 
-          // create area series with passed data
+          // create area series with passed data NEED TO GET DB DATA INTO THIS FORMAT*******
           var series = chart.column([
               ['Rouge', '80540'],
               ['Foundation', '94190'],

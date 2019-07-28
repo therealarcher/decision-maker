@@ -35,6 +35,15 @@ module.exports = (db) => {
 
   // route to show poll results,
   router.get("/admin/:admin_url", (req, res) => {
+
+    // if (filterURLs(urlDatabase, req)[req.params.shortURL]) {
+    //   urlDatabase[req.params.shortURL].longURL = req.body.longURL;
+    //   res.redirect('/urls');
+    // } else {
+    //   res.statusCode = 403;
+    //   let templateVars = { urls: urlDatabase, user: users[req.session.user_id], errorStatusCode: res.statusCode, errorMessage: "Forbbiden! You shall not pass." };
+    //   res.render("urls_error", templateVars);
+
     console.log('params:',req.params);
     const adminUrl = req.params.admin_url;
     db.query(`
@@ -47,7 +56,8 @@ module.exports = (db) => {
       .then(data => {
         const polls = data.rows;
         console.log('polls:',polls, 'polls is:', polls.typeOf);
-        res.json({ polls });
+        let templateVars = {pollOptions: polls};
+        res.render("admin_url.ejs", templateVars);
       })
       .catch(err => {
         res
