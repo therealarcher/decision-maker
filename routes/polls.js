@@ -16,7 +16,6 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
       });
-    // res.send("Hello! This page will list all the polls");
   });
 
   // route to create a new poll
@@ -29,11 +28,6 @@ module.exports = (db) => {
     res.send("Send email to creator, submit poll to database");
   });
 
-  // route to show poll results,
-  // router.get("/:admin_url", (req, res) => {
-  //   res.send("Send email to creator, submit poll to database");
-  // });
-
   // route to show admin & voter links after poll creation
   router.get("/show/:id", (req, res) => {
     res.send("Links Here!");
@@ -42,7 +36,24 @@ module.exports = (db) => {
   // route to show poll results,
   router.get("/admin/:admin_url", (req, res) => {
     console.log('params:',req.params);
-    res.send("Send email to creator, submit poll to database");
+    const adminUrl = req.params.admin_url;
+    db.query(`
+      SELECT options.name, COUNT(votes.id)
+      FROM options JOIN polls ON polls.id = poll_id
+      JOIN votes ON option_id = options.id
+      WHERE admin_URL = '${adminUrl}'
+      GROUP BY options.name;
+      `)
+      .then(data => {
+        const polls = data.rows;
+        console.log('polls:',polls, 'polls is:', polls.typeOf);
+        res.json({ polls });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
 
   // route to vote on poll
