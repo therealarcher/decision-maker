@@ -2,11 +2,21 @@ const express = require('express');
 const router  = express.Router();
 
 
-module.exports = () => {
+module.exports = (db) => {
 
   // route to list all polls
   router.get("/", (req, res) => {
-    res.send("Hello! This page will list all the polls");
+    db.query(`SELECT title FROM polls;`)
+      .then(data => {
+        const polls = data.rows;
+        res.json({ polls });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    // res.send("Hello! This page will list all the polls");
   });
 
   // route to create a new poll
