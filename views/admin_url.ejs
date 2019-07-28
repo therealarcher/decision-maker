@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Poll Administrator's Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  <!-- CDN FOR ANYCHART --->
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js?hcode=be5162d915534272a57d0bb781d27f2b"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js?hcode=be5162d915534272a57d0bb781d27f2b"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js?hcode=be5162d915534272a57d0bb781d27f2b"></script>
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css?hcode=be5162d915534272a57d0bb781d27f2b" type="text/css" rel="stylesheet">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css?hcode=be5162d915534272a57d0bb781d27f2b" type="text/css" rel="stylesheet">
+  <style type="text/css">
+html, body, #container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+</style>
+  </head>
+
+  <body>
+    <h1>Results of POLL</h1>
+  <!--- SCRIPT TO DRAW CHART- MOVE THIS TO EXTERNAL FILE/MODULE-->
+    <script>
+      anychart.onDocumentReady(function () {
+          // create column chart
+          var chart = anychart.column();
+
+          // turn on chart animation
+          chart.animation(true);
+
+          // set chart title text settings
+          chart.title('Top 10 Cosmetic Products by Revenue');
+
+          // create area series with passed data
+          var series = chart.column([
+              ['Rouge', '80540'],
+              ['Foundation', '94190'],
+              ['Mascara', '102610'],
+              ['Lip gloss', '110430'],
+              ['Lipstick', '128000'],
+              ['Nail polish', '143760'],
+              ['Eyebrow pencil', '170670'],
+              ['Eyeliner', '213210'],
+              ['Eyeshadows', '249980']
+          ]);
+
+          // set series tooltip settings
+          series.tooltip().titleFormat('{%X}');
+
+          series.tooltip()
+                  .position('center-top')
+                  .anchor('center-bottom')
+                  .offsetX(0)
+                  .offsetY(5)
+                  .format('${%Value}{groupsSeparator: }');
+
+          // set scale minimum
+          chart.yScale().minimum(0);
+
+          // set yAxis labels formatter
+          chart.yAxis().labels().format('${%Value}{groupsSeparator: }');
+
+          // tooltips position and interactivity settings
+          chart.tooltip().positionMode('point');
+          chart.interactivity().hoverMode('by-x');
+
+          // axes titles
+          chart.xAxis().title('Product');
+          chart.yAxis().title('Revenue');
+
+          // set container id for the chart
+          chart.container('container');
+
+          // initiate chart drawing
+          chart.draw();
+      });
+      </script>
+
+
+  </body>
+</html>
