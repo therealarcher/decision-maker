@@ -27,10 +27,11 @@
                     const addButton = $(".add_field_button");
                     let x =1;
                     $(addButton).click(function(e){
+                        $(console.log(e));
                         e.preventDefault();
                         if(x < maxFields) {
                             x++;
-                            $(wrapper).append(`<div class="form-group"><label for="Poll Option" name="option"/><input name="option.${x}" type="text"/><a href="#" class="remove_field">Remove</a></div>`);
+                            $(wrapper).append(`<div class="form-group"><label for="Poll Option" name="option"/><input name="option_${x}" type="text"/><a href="#" class="remove_field">Remove</a></div>`);
                         };
                     })
                     $(wrapper).on("click",".remove_field", function(e){ 
@@ -40,15 +41,15 @@
                             
                         
                 </script>
-        Name: <input type= "text" name="users.name"/>
-        Email:<input type="text" name="users.email"/>
+        Name: <input type= "text" name="user_name"/>
+        Email:<input type="text" name="user_email"/>
         <br>        
                  
-        Title: <input type= "text" name="polls.title"/>
+        Title: <input type= "text" name="poll_title"/>
               
-        Description: <input type="text" name="polls.description"/>
+        Description: <input type="text" name="poll_description"/>
               <br>
-        Event Date: <input type="date" name="polls.end_date"/>
+        Event Date: <input type="date" name="poll_end_date"/>
               <div class="items">
  
                     <div class="input_fields_wrap"><label>Poll Option:</label>

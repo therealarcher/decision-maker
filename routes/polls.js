@@ -23,12 +23,38 @@ module.exports = (db) => {
   router.get("/new", (req, res) => {
     res.render("new_poll");
   });
-
+  
   // route to submit poll
-  router.post("/", (req, res) => {
+  router.post("/", (req, response) => {
     console.log("this worked!")
-    res.send("Send email to creator, submit poll to database");
-  });
+    console.log(req.body)
+    let arrOptions = Object.values(req.body).splice(5)
+    
+
+    // on submit insert statement into db
+    // write a conditional to check for info already in database
+    db.query(`insert into users(name,email)
+    values($1,$2)
+    returning *`,[req.body.user_name,req.body.user_email])
+    .then((resUsers) => { db.query(`insert into polls(user_id,title,voter_url,admin_url,end_date,created_at) values($1,$2,$3,$4,$5,$6) returning * `
+    ,[resUsers.rows[0].id,req.body.poll_title,'voter','zebra',req.body.poll_end_date,'2013-06-18'])
+    .then((resPolls) => {
+     for(let option of arrOptions) {
+       db.query(`insert into options(poll_id,name) values($1,$2)`,[resPolls.rows[0].id,option])
+       console.log(option)
+     }
+    response.redirect('/polls/admin/zebra')
+    })
+    .catch(err => {
+      console.log(err)
+        // .status(500)
+        // .json({ error: err.message });
+    });
+    })
+
+    // res.send("Send email to creator, submit poll to database");
+  }) 
+
 
   // route to show admin & voter links after poll creation
   router.get("/show/:id", (req, res) => {
