@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
+// all route will start with /polls/...
 
 module.exports = () => {
 
@@ -11,11 +12,12 @@ module.exports = () => {
 
   // route to create a new poll
   router.get("/new", (req, res) => {
-    res.send("Create a new poll here");
+    res.render("new_poll");
   });
 
   // route to submit poll
   router.post("/", (req, res) => {
+    console.log("this worked!")
     res.send("Send email to creator, submit poll to database");
   });
 

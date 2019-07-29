@@ -10,5 +10,5 @@ CREATE TABLE polls (
   admin_url TEXT NOT NULL,
   end_date timestamp,
   created_at timestamp,
-  winning_option INTEGER REFERENCES options(id)
+  -- winning_option INTEGER REFERENCES options(id)
 );

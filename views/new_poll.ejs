@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Create a new Poll</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
+  </head>
+  
+  <body>
+    <h1>Create New Poll</h1>
+    <div>
+        <h2>Main Container</h2>
+        <article>
+            <header>
+                <h3>Create New Poll Form</h3>
+            </header>
+            <form class=".createPoll" method="POST" action="/polls">
+                <script>
+                 $(document).ready(function(){
+                    const maxFields = 20
+                    const wrapper = $(".input_fields_wrap");
+                    const addButton = $(".add_field_button");
+                    let x =1;
+                    $(addButton).click(function(e){
+                        e.preventDefault();
+                        if(x < maxFields) {
+                            x++;
+                            $(wrapper).append(`<div class="form-group"><label for="Poll Option" name="option"/><input name="option.${x}" type="text"/><a href="#" class="remove_field">Remove</a></div>`);
+                        };
+                    })
+                    $(wrapper).on("click",".remove_field", function(e){ 
+                        e.preventDefault(); $(this).parent('div').remove(); x--;
+                    });
+                });
+                            
+                        
+                </script>
+        Name: <input type= "text" name="users.name"/>
+        Email:<input type="text" name="users.email"/>
+        <br>        
+                 
+        Title: <input type= "text" name="polls.title"/>
+              
+        Description: <input type="text" name="polls.description"/>
+              <br>
+        Event Date: <input type="date" name="polls.end_date"/>
+              <div class="items">
+ 
+                    <div class="input_fields_wrap"><label>Poll Option:</label>
+                     <input id="options" class="form-control" name="option" required="required" type="text" /></div>
+                     
+                    </div>
+                    <button type="button" class="add_field_button">Add Field</button>
+                    <button type="submit" >Create</button>
+                </form>
+            </article>
+        </div>
+      </body>
+    </html>
+                     
+                     
