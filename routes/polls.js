@@ -33,18 +33,8 @@ module.exports = (db) => {
     res.send("Links Here!");
   });
 
-  // route to show poll results,
-  router.get("/admin/:admin_url", (req, res) => {
-
-    // if (filterURLs(urlDatabase, req)[req.params.shortURL]) {
-    //   urlDatabase[req.params.shortURL].longURL = req.body.longURL;
-    //   res.redirect('/urls');
-    // } else {
-    //   res.statusCode = 403;
-    //   let templateVars = { urls: urlDatabase, user: users[req.session.user_id], errorStatusCode: res.statusCode, errorMessage: "Forbbiden! You shall not pass." };
-    //   res.render("urls_error", templateVars);
-
-    console.log('params:',req.params);
+  // GET route to show poll admin results, THIS RETURNS JSON ONLY
+  router.get("/admin/:admin_url/json", (req, res) => {
     const adminUrl = req.params.admin_url;
     db.query(`
       SELECT options.name, COUNT(votes.id), polls.title
@@ -55,9 +45,7 @@ module.exports = (db) => {
       `, [adminUrl])
       .then(data => {
         const polls = data.rows;
-        console.log('polls:',polls, 'polls is:', polls.typeOf);
-        let templateVars = {pollData: polls};
-        res.render("admin_url.ejs", templateVars);
+        res.json({ polls });
       })
       .catch(err => {
         res
@@ -66,11 +54,15 @@ module.exports = (db) => {
       });
   });
 
+  // GET route to show poll admin results, renders the ejs template.
+  router.get("/admin/:admin_url", (req, res) => {
+    res.render('admin_url.ejs');
+  });
+
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {
     res.send("Voter page");
   });
-
 
   // route to vote on poll
   router.post("/:voter_url", (req, res) => {
