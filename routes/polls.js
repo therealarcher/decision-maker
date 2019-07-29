@@ -47,16 +47,16 @@ module.exports = (db) => {
     console.log('params:',req.params);
     const adminUrl = req.params.admin_url;
     db.query(`
-      SELECT options.name, COUNT(votes.id)
+      SELECT options.name, COUNT(votes.id), polls.title
       FROM options JOIN polls ON polls.id = poll_id
       JOIN votes ON option_id = options.id
-      WHERE admin_URL = '${adminUrl}'
-      GROUP BY options.name;
-      `)
+      WHERE admin_URL = $1
+      GROUP BY options.name, polls.title;
+      `, [adminUrl])
       .then(data => {
         const polls = data.rows;
         console.log('polls:',polls, 'polls is:', polls.typeOf);
-        let templateVars = {pollOptions: polls};
+        let templateVars = {pollData: polls};
         res.render("admin_url.ejs", templateVars);
       })
       .catch(err => {
