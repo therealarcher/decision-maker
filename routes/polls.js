@@ -21,6 +21,16 @@ const generateEmail = function(voter_url, admin_url, email) {
 // all route will start with /polls/...
 
 module.exports = (db) => {
+  
+  const getPollId = function(voter_URL) {
+    return db.query(
+      `SELECT id
+      FROM polls
+      WHERE voter_url = $1;`, [voter_URL]
+    )
+      // 
+  };
+
   let generateRandomString = function() {
     return Math.random().toString(36).substring(2,8);
   };
@@ -115,9 +125,26 @@ module.exports = (db) => {
     res.render('admin_url.ejs');
   });
 
+  router.post("/temp", (req, res) => {
+    console.log(req.body)
+  });
+
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {
-    res.send("Voter page");
+    getPollId(req.params.voter_url)
+    .then(result => {
+      poll_id = result.rows[0].id
+    
+      db.query(`select options.name, options.id, options.poll_id from options where options.poll_id = $1;`,[poll_id])
+      .then(data => {
+        const options = data.rows
+        let templateVars = {poll_options: options}
+         console.log(templateVars)
+        res.render('voter_form',templateVars);
+      })  
+    })
+    
+    
   });
 
   // route to vote on poll
