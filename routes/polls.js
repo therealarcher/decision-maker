@@ -18,21 +18,6 @@ const generateEmail = function(voter_url, admin_url, email) {
   return data;
 };
 
-
-// function to query db via voter URL and get poll id
-const getPollId = function(voter_URL) {
-  return pool.query(
-    `SELECT id
-    FROM polls
-    WHERE voter_URL = $1;`, [voter_URL]
-  )
-    .then(res => res.rows[0]);
-};
-
-const
-
-
-
 // all route will start with /polls/...
 
 module.exports = (db) => {
@@ -150,14 +135,14 @@ module.exports = (db) => {
       .then((resUsers) => {
       // Insert user's votes into the votes table
 
-      for (let option of arrOptions) {
-        db.query(`
+        for (let option of arrOptions) {
+          db.query(`
         INSERT INTO votes(poll_id,option_id, user_id, rank)
         VALUES($1,$2,$3,$4) RETURNING * `,[req.params.poll_id, option.id, resUsers.rows[0].id, option.rank]);
-        console.log("vote submited!");
-      }
+          console.log("vote submited!");
+        }
+      });
   });
-});
 
   return router;
 
