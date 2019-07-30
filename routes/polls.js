@@ -134,7 +134,6 @@ module.exports = (db) => {
     getPollId(req.params.voter_url)
     .then(result => {
       poll_id = result.rows[0].id
-    
       db.query(`select options.name, options.id, options.poll_id from options where options.poll_id = $1;`,[poll_id])
       .then(data => {
         const options = data.rows
@@ -143,9 +142,10 @@ module.exports = (db) => {
         res.render('voter_form',templateVars);
       })  
     })
-    
-    
   });
+    
+    
+    
 
   // route to vote on poll
   router.post("/:voter_url", (req, res) => {
