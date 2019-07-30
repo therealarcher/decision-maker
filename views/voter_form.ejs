@@ -16,11 +16,11 @@
     <div>
         <article>
             <header>
-             <h3>Please Cast Your Vote!</h3>   
+             <h3>Please Cast Your Vote!</h3>
             </header>
             <div>
-                    
-                <form class=".vote" method="POST" action="/polls/temp">
+
+                <form class=".vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
                 Name: <input type="text" name="user_name"/>
                 Email: <input type="text" name="user_email"/>
                 <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
@@ -29,7 +29,7 @@
                 <p><%=key.name%></p>
                 <input type="text" name="ranks[<%=key.id %>][rank]">
                 <input type="hidden" name="ranks[<%=key.id %>][id]" value="<%=key.id%>">
-                
+
                 <% }; %>
                 <br>
                 <br>
@@ -40,6 +40,5 @@
         </div>
       </body>
     </html>
-                
-        
-        
+
+

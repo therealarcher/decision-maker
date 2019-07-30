@@ -132,36 +132,34 @@ module.exports = (db) => {
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {
     getPollId(req.params.voter_url)
-    .then(result => {
-      poll_id = result.rows[0].id
-      db.query(`select options.name, options.id, options.poll_id from options where options.poll_id = $1;`,[poll_id])
-      .then(data => {
-        const options = data.rows
-        let templateVars = {poll_options: options}
-         console.log(templateVars)
-        res.render('voter_form',templateVars);
-      })
-    })
+      .then(result => {
+        poll_id = result.rows[0].id;
+        db.query(`select options.name, options.id, options.poll_id from options where options.poll_id = $1;`,[poll_id])
+          .then(data => {
+            const options = data.rows;
+            let templateVars = {poll_options: options};
+            console.log(templateVars);
+            res.render('voter_form',templateVars);
+          });
+      });
   });
-
-
-
 
   router.post("/:poll_id/vote", (req, res) => {
     let arrOptions = Object.values(req.body).splice(3);
+    console.log(arrOptions);
     // Insert user (voter) into users table *** WRITE A SEPERATE FUNCTION FOR THIS ***
     db.query(`
     INSERT INTO users(name,email)
     VALUES($1,$2)
     RETURNING *`,[req.body.user_name,req.body.user_email])
       .then((resUsers) => {
-      // Insert user's votes into the votes table
 
-        for (let option of arrOptions) {
+        // Insert user's votes into the votes table
+        for (let option of arrOptions[0]) {
+          console.log('poll_id:',req.params.poll_id, 'option_id:', option.id, 'user_id:', resUsers.rows[0].id, 'rank', option.rank);
           db.query(`
         INSERT INTO votes(poll_id,option_id, user_id, rank)
         VALUES($1,$2,$3,$4) RETURNING * `,[req.params.poll_id, option.id, resUsers.rows[0].id, option.rank]);
-          console.log("vote submited!");
         }
       });
   });
