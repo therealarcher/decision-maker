@@ -1,4 +1,4 @@
-require('dotenv').config({ debug: process.env.DEBUG });
+require('dotenv').config();
 
 const mailgun = require('mailgun-js');
 
