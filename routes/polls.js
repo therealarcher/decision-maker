@@ -1,5 +1,22 @@
 const express = require('express');
 const router  = express.Router();
+require('dotenv').config();
+const mailgun = require('mailgun-js');
+const mg = mailgun({apiKey: process.env.API_KEY, domain: process.env.DOMAIN});
+
+
+const generateEmail = function(voter_url, admin_url, email) {
+
+  const data = {
+    from: 'me@samples.mailgun.org',
+    to: email,
+    subject: 'Thanks for creating your poll!',
+    text: `Thank you for creating your poll!  Your administrator link can be found at ${admin_url}
+    Now it's up to you to send this link ${voter_url} to those who you want to include in the voting!
+    Come back to your admin_url page anytime to view the results of the poll.`
+  };
+  return data;
+}
 
 // all route will start with /polls/...
 
@@ -7,7 +24,7 @@ module.exports = (db) => {
   let generateRandomString = function() {
     return Math.random().toString(36).substring(2,8);
   };
-  
+
   // route to list all polls
   router.get("/", (req, res) => {
     db.query(`SELECT title FROM polls;`)
@@ -26,7 +43,7 @@ module.exports = (db) => {
   router.get("/new", (req, res) => {
     res.render("new_poll");
   });
-  
+
   // route to submit poll
   router.post("/", (req, response) => {
     console.log("this worked!")
@@ -47,7 +64,14 @@ module.exports = (db) => {
        db.query(`insert into options(poll_id,name) values($1,$2)`,[resPolls.rows[0].id,option])
        console.log(option)
      }
-    response.redirect(`/polls/admin/${adminUrl}`)
+     //email function send
+    let data = generateEmail(voterUrl, adminUrl, req.body.user_email);
+     mg.messages().send(data, (error, body) => {
+      console.log(body);
+      console.log(error);
+      // console.log(data);
+    });
+     response.redirect(`/polls/admin/${adminUrl}`)
     })
     .catch(err => {
       console.log(err)
@@ -57,7 +81,7 @@ module.exports = (db) => {
     })
 
     // res.send("Send email to creator, submit poll to database");
-  }) 
+  })
 
 
   // route to show admin & voter links after poll creation
