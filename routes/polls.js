@@ -21,14 +21,13 @@ const generateEmail = function(voter_url, admin_url, email) {
 // all route will start with /polls/...
 
 module.exports = (db) => {
-  
+
   const getPollId = function(voter_URL) {
     return db.query(
       `SELECT id
       FROM polls
       WHERE voter_url = $1;`, [voter_URL]
-    )
-      // 
+    );
   };
 
   let generateRandomString = function() {
@@ -108,11 +107,11 @@ module.exports = (db) => {
     const adminUrl = req.params.admin_url;
 
     db.query(`
-      SELECT options.name, COUNT(votes.id), polls.title
+      SELECT options.name as option, votes.rank, users.name as users_name
       FROM options JOIN polls ON polls.id = poll_id
       JOIN votes ON option_id = options.id
+      JOIN users ON users.id = votes.user_id
       WHERE admin_URL = $1
-      GROUP BY options.name, polls.title;
       `, [adminUrl])
       .then(data => {
         const polls = data.rows;
@@ -130,10 +129,6 @@ module.exports = (db) => {
     res.render('admin_url.ejs');
   });
 
-  router.post("/temp", (req, res) => {
-    console.log(req.body)
-  });
-
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {
     getPollId(req.params.voter_url)
@@ -145,12 +140,12 @@ module.exports = (db) => {
         let templateVars = {poll_options: options}
          console.log(templateVars)
         res.render('voter_form',templateVars);
-      })  
+      })
     })
   });
-    
-    
-    
+
+
+
 
   router.post("/:poll_id/vote", (req, res) => {
     let arrOptions = Object.values(req.body).splice(3);
