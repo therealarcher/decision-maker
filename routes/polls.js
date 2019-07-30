@@ -4,7 +4,10 @@ const router  = express.Router();
 // all route will start with /polls/...
 
 module.exports = (db) => {
-
+  let generateRandomString = function() {
+    return Math.random().toString(36).substring(2,8);
+  };
+  
   // route to list all polls
   router.get("/", (req, res) => {
     db.query(`SELECT title FROM polls;`)
@@ -29,7 +32,8 @@ module.exports = (db) => {
     console.log("this worked!")
     console.log(req.body)
     let arrOptions = Object.values(req.body).splice(5)
-    
+    let voterUrl = generateRandomString()
+    let adminUrl = generateRandomString()
 
     // on submit insert statement into db
     // write a conditional to check for info already in database
@@ -37,13 +41,13 @@ module.exports = (db) => {
     values($1,$2)
     returning *`,[req.body.user_name,req.body.user_email])
     .then((resUsers) => { db.query(`insert into polls(user_id,title,voter_url,admin_url,end_date,created_at) values($1,$2,$3,$4,$5,$6) returning * `
-    ,[resUsers.rows[0].id,req.body.poll_title,'voter','zebra',req.body.poll_end_date,'2013-06-18'])
+    ,[resUsers.rows[0].id,req.body.poll_title,voterUrl,adminUrl,req.body.poll_end_date,'2013-06-18'])
     .then((resPolls) => {
      for(let option of arrOptions) {
        db.query(`insert into options(poll_id,name) values($1,$2)`,[resPolls.rows[0].id,option])
        console.log(option)
      }
-    response.redirect('/polls/admin/zebra')
+    response.redirect(`/polls/admin/${adminUrl}`)
     })
     .catch(err => {
       console.log(err)
