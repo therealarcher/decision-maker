@@ -34,15 +34,28 @@ module.exports = (db) => {
   };
 
   // Helper Function to get poll information given the poll Id (url type is either admin_url or voter_url)
-  const checkUrlExists = function(urlType, urlchecking) {
+  const checkAdminUrlExists = function(urlchecking) {
+    console.log(urlchecking);
     return db.query(
-      `SELECT $1
+      `SELECT admin_url
         FROM polls
-        WHERE $1 = $2;`, [urlType, urlchecking]
+        WHERE admin_url = $1;`, [urlchecking]
     ).then((res) => {
+      console.log(res.rows);
       return res.rows;
-    }).catch((err) => {
-      return err;
+    });
+  };
+
+// Helper Function to get poll information given the poll Id (url type is either admin_url or voter_url)
+  const checkVoterUrlExists = function(urlchecking) {
+    console.log('voterUrl:', urlchecking);
+    return db.query(
+      `SELECT voter_url
+        FROM polls
+        WHERE voter_url = $1;`, [urlchecking]
+    ).then((res) => {
+      console.log(res.rows);
+      return res.rows;
     });
   };
 
@@ -67,15 +80,14 @@ module.exports = (db) => {
       });
   });
 
-  // Route to render Create New Poll Page
+  // Route to render "Create New Poll" Page
   router.get("/new", (req, res) => {
     res.render("new_poll");
   });
 
-  // route to submit poll
+  // Route Handler to create a new poll
   router.post("/", (req, response) => {
-    console.log("this worked!");
-    console.log(req.body);
+
     let arrOptions = Object.values(req.body).splice(5);
     let voterUrl = generateRandomString();
     let adminUrl = generateRandomString();
@@ -86,11 +98,13 @@ module.exports = (db) => {
     VALUES($1,$2)
     RETURNING *`,[req.body.user_name,req.body.user_email])
       .then((resUsers) => {
+
       // Insert poll data into the polls table
         db.query(`
         INSERT INTO polls(user_id,title,voter_url,admin_url,end_date)
         VALUES($1,$2,$3,$4,$5) RETURNING * `,[resUsers.rows[0].id,req.body.poll_title,voterUrl,adminUrl,req.body.poll_end_date])
           .then((resPolls) => {
+
             // Insert options data into the options table
             for (let option of arrOptions) {
               db.query(`
@@ -98,12 +112,9 @@ module.exports = (db) => {
               VALUES($1,$2)`,[resPolls.rows[0].id,option]);
               console.log(option);
             }
-            //email function send
+            // Mailgun function to send an email to poll creator with voter & administrator links
             let data = mailgunHelperFunctions.generatePollCreationEmail(voterUrl, adminUrl, req.body.user_email);
             mg.messages().send(data, (error, body) => {
-              console.log(body);
-              console.log(error);
-            // console.log(data);
             });
             response.redirect(`/polls/admin/${adminUrl}`);
           })
@@ -145,30 +156,45 @@ module.exports = (db) => {
   // GET route to show poll admin results, renders the ejs template.
   router.get("/admin/:admin_url", (req, res) => {
     const adminUrl = req.params.admin_url;
-    checkUrlExists("admin_url", adminUrl).then((res) => {
-      console.log(res);
+    checkAdminUrlExists(adminUrl).then((response) => {
+      console.log("admin url:", response);
+      if (response.length === 0) {
+        res.render('error_template');
+      } else {
+        res.render('admin_url.ejs');
+      }
     });
-    res.render('admin_url.ejs');
+
   });
 
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {
-    getPollId(req.params.voter_url)
-      .then(result => {
-        let poll_id = result.rows[0].id;
-        db.query(`
-        SELECT options.name, options.id, options.poll_id
-        FROM options
-        WHERE options.poll_id = $1;`,[poll_id])
-          .then(data => {
-            const options = data.rows;
-            let templateVars = {poll_options: options};
-            console.log(templateVars);
-            res.render('voter_form',templateVars);
+    const voterUrl = req.params.voter_url;
+    // Check for url in the database
+    checkVoterUrlExists(voterUrl).then((response) => {
+      // if url doesn't exist, render
+      if (response.length === 0) {
+        res.render('error_template');
+      } else {
+        getPollId(req.params.voter_url)
+          .then(result => {
+            let poll_id = result.rows[0].id;
+            db.query(`
+          SELECT options.name, options.id, options.poll_id
+          FROM options
+          WHERE options.poll_id = $1;`,[poll_id])
+              .then(data => {
+                const options = data.rows;
+                let templateVars = {poll_options: options};
+                console.log(templateVars);
+                res.render('voter_form',templateVars);
+              });
           });
-      });
+      }
+    });
   });
 
+  // Route handler for when a user submits their vote
   router.post("/:poll_id/vote", (req, res) => {
     let arrOptions = Object.values(req.body)[3];
     let poll_id = Object.values(req.body)[2];
@@ -188,7 +214,6 @@ module.exports = (db) => {
         // set variables to use in mailgun
         let voter_name = resUsers.rows[0].name;
         getPollInfo(poll_id).then((pollInfo) => {
-          console.log(pollInfo);
           let poll_name = pollInfo[0].title;
           let creator_email = pollInfo[0].email;
           let admin_url = pollInfo[0].admin_url;
@@ -206,7 +231,7 @@ module.exports = (db) => {
     res.redirect("/polls/voted");
   });
 
-  // route to list all polls
+  // Route Handler for landing page that voter is redirected to after they vote
   router.get("/voted", (req, res) => {
     res.send("Thanks for voting!");
   });
