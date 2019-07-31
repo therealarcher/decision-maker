@@ -1,11 +1,11 @@
-const renderChoices(option)
-let $option = ($('<article>')).addClass('option')
+// const renderChoices(option)
+// let $option = ($('<article>')).addClass('option')
 
-$(document).ready(function() {
-console.log('The DOM has been loaded');
+// $(document).ready(function() {
+// console.log('The DOM has been loaded');
 
 
-});
+// });
 
 // $(() => {
 //   $.ajax({

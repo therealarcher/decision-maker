@@ -7,19 +7,19 @@
 // get an aggregated value for each options
 // sort these options and return the one with the highest scores
 
-let borda = function(data) {
+export const borda = function(data) {
   // calculate a list of unique options and set the length as num (used for multiplier)
   let options = [];
-  let pollData = data.polls
-  for (obj of pollData) {
+  //let pollData = data.polls;
+  for (let obj of data) {
     options.push(obj.option);
   }
   const optionsUnique = [...new Set(options)];
   const num = optionsUnique.length;
 
   // create an object with arrays of rankings for each option
-  optRanks = {};
-  for (val of pollData) {
+  let optRanks = {};
+  for (let val of data) {
     if (!optRanks[val.option]) {
       optRanks[val.option] = [];
       optRanks[val.option].push(val.rank);
@@ -30,19 +30,19 @@ let borda = function(data) {
   }
 
   // multiplier array to weight option ranks
-  multiplier = []
-  for (i = num; i > 0; i--) {
+  let multiplier = []
+  for (let i = num; i > 0; i--) {
     multiplier.push(i);
   }
   // console.log('multiplier: ', multiplier)
 
   // create a rankings object with options as keys total weighted sums as values
   let rankings = {}
-  for (opts in optRanks) {
+  for (let opts in optRanks) {
     // console.log('ranks: ',opts);
     // console.log('array of option ranks: ', optRanks[opts]);
     rankings[opts] = 0;
-    for (i = 0; i < optRanks[opts].length; i++) {
+    for (let i = 0; i < optRanks[opts].length; i++) {
       rankings[opts] += (multiplier[optRanks[opts][i] - 1]);
       // console.log('ranking: ', optRanks[opts][i])
       // console.log('multiplier: ', multiplier[optRanks[opts][i] - 1] )
@@ -61,6 +61,6 @@ let borda = function(data) {
   return sortable;
 
 }
-borda(data);
 
-module.exports = { borda };
+//module.exports = { borda };
+export default borda;

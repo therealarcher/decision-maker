@@ -3,8 +3,8 @@
 //draws it.
 
 // Checks to see if a '/' was added to the end of the url
+import borda from './borda.js';
 const url = window.location.href.endsWith('/') ? `${window.location.href}json` : `${window.location.href}/json`;
-const borda = require('./borda.js');
 
 const drawChart = function() {
   $.ajax({
@@ -17,18 +17,18 @@ const drawChart = function() {
     console.log(polls);
 
     // Put data in correct format to feed it into the data table
-    let chartCols = [];
-    for (let option of polls) {
-      let colArr = [];
-      colArr.push(option.name);
-      colArr.push(parseInt(option.count));
-      chartCols.push(colArr);
-    }
-    console.log(chartCols);
+    // let chartCols = [];
+    // for (let option of polls) {
+    //   let colArr = [];
+    //   colArr.push(option.name);
+    //   colArr.push(parseInt(option.count));
+    //   chartCols.push(colArr);
+    // }
+    // console.log(chartCols);
 
     //assigning border function to variable
-    // const chartCols = borda(polls);
-    // console.log(chartCols);
+    const chartCols = borda(polls);
+    console.log(chartCols);
 
 
 
