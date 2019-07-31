@@ -225,13 +225,6 @@ module.exports = (db) => {
     res.render('admin_url.ejs');
   });
 
-<<<<<<< HEAD
-  // router.post("/temp", (req, res) => {
-  //   console.log(req.body)
-  // });
-
-=======
->>>>>>> voter_submit
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {
     getPollId(req.params.voter_url)
