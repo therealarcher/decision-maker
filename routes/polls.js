@@ -11,9 +11,105 @@ const generateEmail = function(voter_url, admin_url, email) {
     from: 'me@samples.mailgun.org',
     to: email,
     subject: 'Thanks for creating your poll!',
-    text: `Thank you for creating your poll!  Your administrator link can be found at ${admin_url}
-    Now it's up to you to send this link ${voter_url} to those who you want to include in the voting!
-    Come back to your admin_url page anytime to view the results of the poll.`
+    html:`
+    <!DOCTYPE html>
+<html style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+<head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Actionable emails e.g. reset password</title>
+​
+​
+<style type="text/css">
+img {
+max-width: 100%;
+}
+body {
+-webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100% !important; height: 100%; line-height: 1.6em;
+}
+body {
+background-color: #f6f6f6;
+}
+@media only screen and (max-width: 640px) {
+  body {
+    padding: 0 !important;
+  }
+  h1 {
+    font-weight: 800 !important; margin: 20px 0 5px !important;
+  }
+  h2 {
+    font-weight: 800 !important; margin: 20px 0 5px !important;
+  }
+  h3 {
+    font-weight: 800 !important; margin: 20px 0 5px !important;
+  }
+  h4 {
+    font-weight: 800 !important; margin: 20px 0 5px !important;
+  }
+  h1 {
+    font-size: 22px !important;
+  }
+  h2 {
+    font-size: 18px !important;
+  }
+  h3 {
+    font-size: 16px !important;
+  }
+  .container {
+    padding: 0 !important; width: 100% !important;
+  }
+  .content {
+    padding: 0 !important;
+  }
+  .content-wrap {
+    padding: 10px !important;
+  }
+  .invoice {
+    width: 100% !important;
+  }
+}
+</style>
+</head>
+​
+<body itemscope itemtype="http://schema.org/EmailMessage" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100% !important; height: 100%; line-height: 1.6em; background-color: #f6f6f6; margin: 0;" bgcolor="#f6f6f6">
+​
+<table class="body-wrap" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;" bgcolor="#f6f6f6"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;" valign="top"></td>
+    <td class="container" width="600" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; display: block !important; max-width: 600px !important; clear: both !important; margin: 0 auto;" valign="top">
+      <div class="content" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; max-width: 600px; display: block; margin: 0 auto; padding: 20px;">
+        <table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope itemtype="http://schema.org/ConfirmAction" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; background-color: #fff; margin: 0; border: 1px solid #e9e9e9;" bgcolor="#fff"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-wrap" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 20px;" valign="top">
+              <meta itemprop="name" content="Confirm Email" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;" /><table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+                    Thank you for creating a poll with Decidr!  We will help you make a decision with confidence.
+                  </td>
+                </tr><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+                    Your personal administrator link is:<br>
+                    <br>
+                    <a href="http://localhost:8080/polls/admin/${admin_url}">View Results</a><br>
+                    <br>
+                    Voter url is:<br>
+                    <br>
+                    <a href="http://localhost:8080/polls/voter/${voter_url}">Vote Here</a><br>
+                    <br>
+                    <a href="http://localhost:8080/polls/voter/${voter_url}">http://localhost:8080/polls/voter/${voter_url}</a><br>
+                    It's up to you to send this voter link to those who you want to include in the voting process!<br>
+                    <br>
+                    Come back to your administrator link anytime to view the results of the poll.
+                  </td>
+                </tr><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+                    <a href="http://www.mailgun.com" class="btn-primary" itemprop="url" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;">Poll Results</a>
+                  </td>
+                </tr><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+                    &mdash; The friendly folk at Decidr
+                  </td>
+                </tr></table></td>
+          </tr></table><div class="footer" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; clear: both; color: #999; margin: 0; padding: 20px;">
+          {{!--<table width="100%" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="aligncenter content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;" align="center" valign="top">Follow <a href="http://twitter.com/mail_gun" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;">@Mail_Gun</a> on Twitter.</td>--}}
+          {{!--  </tr></table>--}}
+            </div></div>
+    </td>
+    <td style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;" valign="top"></td>
+  </tr></table></body>
+</html>` 
+    
   };
   return data;
 };
@@ -70,8 +166,8 @@ module.exports = (db) => {
       .then((resUsers) => {
       // Insert poll data into the polls table
         db.query(`
-        INSERT INTO polls(user_id,title,voter_url,admin_url,end_date,created_at)
-        VALUES($1,$2,$3,$4,$5,$6) RETURNING * `,[resUsers.rows[0].id,req.body.poll_title,voterUrl,adminUrl,req.body.poll_end_date,'2013-06-18'])
+        INSERT INTO polls(user_id,title,voter_url,admin_url,end_date)
+        VALUES($1,$2,$3,$4,$5) RETURNING * `,[resUsers.rows[0].id,req.body.poll_title,voterUrl,adminUrl,req.body.poll_end_date])
           .then((resPolls) => {
             // Insert options data into the options table
             for (let option of arrOptions) {
@@ -130,9 +226,9 @@ module.exports = (db) => {
     res.render('admin_url.ejs');
   });
 
-  router.post("/temp", (req, res) => {
-    console.log(req.body)
-  });
+  // router.post("/temp", (req, res) => {
+  //   console.log(req.body)
+  // });
 
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {

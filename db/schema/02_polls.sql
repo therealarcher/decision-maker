@@ -9,5 +9,5 @@ CREATE TABLE polls (
   voter_url TEXT NOT NULL,
   admin_url TEXT NOT NULL,
   end_date timestamp,
-  created_at timestamp
+  created_at timestamp DEFAULT NOW() 
 );

@@ -6,11 +6,9 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
   </head>
-
   <body>
     <h1>Voter Form</h1>
     <div>
@@ -19,7 +17,6 @@
              <h3>Please Cast Your Vote!</h3>   
             </header>
             <div>
-                    
                 <form class=".vote" method="POST" action="/polls/temp">
                 Name: <input type="text" name="user_name"/>
                 Email: <input type="text" name="user_email"/>
@@ -29,17 +26,25 @@
                 <p><%=key.name%></p>
                 <input type="text" name="ranks[<%=key.id %>][rank]">
                 <input type="hidden" name="ranks[<%=key.id %>][id]" value="<%=key.id%>">
-                
                 <% }; %>
                 <br>
                 <br>
                 <button>Vote</button>
             </form>
-            </div>
-            </article>
-        </div>
-      </body>
-    </html>
+        </article>
+    </div>
+</div>
+</body>
+</html>
+
+                    
+                
+            
+           
+ 
+ 
+
+            
                 
         
         
