@@ -46,13 +46,27 @@ module.exports = (db) => {
     });
   };
 
-// Helper Function to get poll information given the poll Id (url type is either admin_url or voter_url)
+  // Helper Function to get poll information given the poll Id (url type is either admin_url or voter_url)
   const checkVoterUrlExists = function(urlchecking) {
     console.log('voterUrl:', urlchecking);
     return db.query(
       `SELECT voter_url
         FROM polls
         WHERE voter_url = $1;`, [urlchecking]
+    ).then((res) => {
+      console.log(res.rows);
+      return res.rows;
+    });
+  };
+
+  // Helper Function to check if a user has already voted
+  const hasAlreadyVoted = function(email, poll_id) {
+    return db.query(
+      `SELECT user_id
+        FROM votes
+        JOIN users ON users.id = user_id
+        WHERE users.email = $1
+        AND votes.poll_id = $2`, [email, poll_id]
     ).then((res) => {
       console.log(res.rows);
       return res.rows;
@@ -196,39 +210,48 @@ module.exports = (db) => {
 
   // Route handler for when a user submits their vote
   router.post("/:poll_id/vote", (req, res) => {
+
+
     let arrOptions = Object.values(req.body)[3];
     let poll_id = Object.values(req.body)[2];
-    console.log(arrOptions);
-    // Insert user (voter) into users table
-    db.query(`
-    INSERT INTO users(name,email)
-    VALUES($1,$2)
-    RETURNING *`,[req.body.user_name,req.body.user_email])
-      .then((resUsers) => {
-        // Insert user's votes into the votes table
-        for (let option of arrOptions) {
-          db.query(`
-        INSERT INTO votes(poll_id,option_id, user_id, rank)
-        VALUES($1,$2,$3,$4) RETURNING * `,[req.params.poll_id, option.id, resUsers.rows[0].id, option.rank]);
-        }
-        // set variables to use in mailgun
-        let voter_name = resUsers.rows[0].name;
-        getPollInfo(poll_id).then((pollInfo) => {
-          let poll_name = pollInfo[0].title;
-          let creator_email = pollInfo[0].email;
-          let admin_url = pollInfo[0].admin_url;
-          let voter_url = pollInfo[0].voter_url;
-          console.log(creator_email);
-          // Mailgun notification to creator that someone has voted
-          let data = mailgunHelperFunctions.generateVoteNotificationEmail(voter_name, poll_name, creator_email, admin_url, voter_url);
-          mg.messages().send(data, (error, body) => {
-            console.log(body);
-            console.log(error);
-          //  console.log(data);
+
+    hasAlreadyVoted(req.body.user_email, poll_id,).then((response) => {
+      if (response.length === 0) {
+        db.query(`
+        INSERT INTO users(name,email)
+        VALUES($1,$2)
+        RETURNING *`,[req.body.user_name,req.body.user_email])
+          .then((resUsers) => {
+            // Insert user's votes into the votes table
+            for (let option of arrOptions) {
+              db.query(`
+            INSERT INTO votes(poll_id,option_id, user_id, rank)
+            VALUES($1,$2,$3,$4) RETURNING * `,[req.params.poll_id, option.id, resUsers.rows[0].id, option.rank]);
+            }
+            // set variables to use in mailgun
+            let voter_name = resUsers.rows[0].name;
+            getPollInfo(poll_id).then((pollInfo) => {
+              let poll_name = pollInfo[0].title;
+              let creator_email = pollInfo[0].email;
+              let admin_url = pollInfo[0].admin_url;
+              let voter_url = pollInfo[0].voter_url;
+              console.log(creator_email);
+              // Mailgun notification to creator that someone has voted
+              let data = mailgunHelperFunctions.generateVoteNotificationEmail(voter_name, poll_name, creator_email, admin_url, voter_url);
+              mg.messages().send(data, (error, body) => {
+                console.log(body);
+                console.log(error);
+              //  console.log(data);
+              });
+            });
           });
-        });
-      });
-    res.redirect("/polls/voted");
+        res.redirect("/polls/voted");
+      } else {
+        res.send("ERROR! YOU HAVE ALREADY VOTED");
+      }
+    });
+    // Insert user (voter) into users table
+
   });
 
   // Route Handler for landing page that voter is redirected to after they vote
