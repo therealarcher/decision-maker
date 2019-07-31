@@ -10,8 +10,6 @@ const mg = mailgun({apiKey: process.env.API_KEY, domain: process.env.DOMAIN});
 // Require function to generate mailgun templates
 const mailgunHelperFunctions = require('../public/scripts/mailgun');
 
-
-
 module.exports = (db) => {
 
   // Helper Function to get PollId from voter URL
@@ -35,9 +33,25 @@ module.exports = (db) => {
     });
   };
 
+  // Helper Function to get poll information given the poll Id (url type is either admin_url or voter_url)
+  const checkUrlExists = function(urlType, urlchecking) {
+    return db.query(
+      `SELECT $1
+        FROM polls
+        WHERE $1 = $2;`, [urlType, urlchecking]
+    ).then((res) => {
+      return res.rows;
+    }).catch((err) => {
+      return err;
+    });
+  };
+
+  // Random string generator for URLs
   let generateRandomString = function() {
     return Math.random().toString(36).substring(2,8);
   };
+
+  // ROUTES
 
   // route to list all polls
   router.get("/", (req, res) => {
@@ -110,7 +124,6 @@ module.exports = (db) => {
   // GET route to show poll admin results, THIS RETURNS JSON ONLY
   router.get("/admin/:admin_url/json", (req, res) => {
     const adminUrl = req.params.admin_url;
-
     db.query(`
       SELECT options.name as option, votes.rank, users.name as users_name
       FROM options JOIN polls ON polls.id = poll_id
@@ -131,6 +144,10 @@ module.exports = (db) => {
 
   // GET route to show poll admin results, renders the ejs template.
   router.get("/admin/:admin_url", (req, res) => {
+    const adminUrl = req.params.admin_url;
+    checkUrlExists("admin_url", adminUrl).then((res) => {
+      console.log(res);
+    });
     res.render('admin_url.ejs');
   });
 
