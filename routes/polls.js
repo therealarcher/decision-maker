@@ -134,7 +134,10 @@ module.exports = (db) => {
     getPollId(req.params.voter_url)
       .then(result => {
         poll_id = result.rows[0].id;
-        db.query(`select options.name, options.id, options.poll_id from options where options.poll_id = $1;`,[poll_id])
+        db.query(`
+        SELECT options.name, options.id, options.poll_id
+        FROM options
+        WHERE options.poll_id = $1;`,[poll_id])
           .then(data => {
             const options = data.rows;
             let templateVars = {poll_options: options};
@@ -146,14 +149,12 @@ module.exports = (db) => {
 
   router.post("/:poll_id/vote", (req, res) => {
     let arrOptions = Object.values(req.body).splice(3);
-    console.log(arrOptions);
-    // Insert user (voter) into users table *** WRITE A SEPERATE FUNCTION FOR THIS ***
+    // Insert user (voter) into users table
     db.query(`
     INSERT INTO users(name,email)
     VALUES($1,$2)
     RETURNING *`,[req.body.user_name,req.body.user_email])
       .then((resUsers) => {
-
         // Insert user's votes into the votes table
         for (let option of arrOptions[0]) {
           console.log('poll_id:',req.params.poll_id, 'option_id:', option.id, 'user_id:', resUsers.rows[0].id, 'rank', option.rank);
@@ -161,8 +162,24 @@ module.exports = (db) => {
         INSERT INTO votes(poll_id,option_id, user_id, rank)
         VALUES($1,$2,$3,$4) RETURNING * `,[req.params.poll_id, option.id, resUsers.rows[0].id, option.rank]);
         }
+        //ADD MAIL GUN FUNCTION
+        res.redirect("/polls/voted");
       });
   });
+
+
+  // route to list all polls
+  router.get("/voted", (req, res) => {
+    res.send("Thanks for voting!")
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+
+
 
   return router;
 
