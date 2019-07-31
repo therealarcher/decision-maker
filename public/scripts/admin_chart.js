@@ -4,6 +4,7 @@
 
 // Checks to see if a '/' was added to the end of the url
 const url = window.location.href.endsWith('/') ? `${window.location.href}json` : `${window.location.href}/json`;
+const borda = require('./borda.js');
 
 const drawChart = function() {
   $.ajax({
@@ -24,6 +25,12 @@ const drawChart = function() {
       chartCols.push(colArr);
     }
     console.log(chartCols);
+
+    //assigning border function to variable
+    // const chartCols = borda(polls);
+    // console.log(chartCols);
+
+
 
     // Create the data table
     const data = new google.visualization.DataTable(chartCols);
