@@ -17,12 +17,8 @@
              <h3>Please Cast Your Vote!</h3>
             </header>
             <div>
-<<<<<<< HEAD
-                <form class=".vote" method="POST" action="/polls/temp">
-=======
 
                 <form class=".vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
->>>>>>> voter_submit
                 Name: <input type="text" name="user_name"/>
                 Email: <input type="text" name="user_email"/>
                 <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
@@ -31,39 +27,26 @@
                 <p><%=key.name%></p>
                 <input type="text" name="ranks[<%=key.id %>][rank]">
                 <input type="hidden" name="ranks[<%=key.id %>][id]" value="<%=key.id%>">
-<<<<<<< HEAD
-=======
 
->>>>>>> voter_submit
                 <% }; %>
                 <br>
                 <br>
                 <button>Vote</button>
             </form>
-<<<<<<< HEAD
         </article>
     </div>
 </div>
 </body>
 </html>
 
-                    
-                
-            
-           
- 
- 
-
-            
-                
-        
-        
-=======
-            </div>
-            </article>
-        </div>
-      </body>
-    </html>
 
 
->>>>>>> voter_submit
+
+
+
+
+
+
+
+
+
