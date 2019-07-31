@@ -117,14 +117,13 @@ background-color: #f6f6f6;
 // all route will start with /polls/...
 
 module.exports = (db) => {
-  
+
   const getPollId = function(voter_URL) {
     return db.query(
       `SELECT id
       FROM polls
       WHERE voter_url = $1;`, [voter_URL]
-    )
-      // 
+    );
   };
 
   let generateRandomString = function() {
@@ -204,11 +203,11 @@ module.exports = (db) => {
     const adminUrl = req.params.admin_url;
 
     db.query(`
-      SELECT options.name, COUNT(votes.id), polls.title
+      SELECT options.name as option, votes.rank, users.name as users_name
       FROM options JOIN polls ON polls.id = poll_id
       JOIN votes ON option_id = options.id
+      JOIN users ON users.id = votes.user_id
       WHERE admin_URL = $1
-      GROUP BY options.name, polls.title;
       `, [adminUrl])
       .then(data => {
         const polls = data.rows;
@@ -226,46 +225,64 @@ module.exports = (db) => {
     res.render('admin_url.ejs');
   });
 
+<<<<<<< HEAD
   // router.post("/temp", (req, res) => {
   //   console.log(req.body)
   // });
 
+=======
+>>>>>>> voter_submit
   // route to vote on poll
   router.get("/voter/:voter_url", (req, res) => {
     getPollId(req.params.voter_url)
-    .then(result => {
-      poll_id = result.rows[0].id
-      db.query(`select options.name, options.id, options.poll_id from options where options.poll_id = $1;`,[poll_id])
-      .then(data => {
-        const options = data.rows
-        let templateVars = {poll_options: options}
-         console.log(templateVars)
-        res.render('voter_form',templateVars);
-      })  
-    })
+      .then(result => {
+        poll_id = result.rows[0].id;
+        db.query(`
+        SELECT options.name, options.id, options.poll_id
+        FROM options
+        WHERE options.poll_id = $1;`,[poll_id])
+          .then(data => {
+            const options = data.rows;
+            let templateVars = {poll_options: options};
+            console.log(templateVars);
+            res.render('voter_form',templateVars);
+          });
+      });
   });
-    
-    
-    
 
   router.post("/:poll_id/vote", (req, res) => {
     let arrOptions = Object.values(req.body).splice(3);
-    // Insert user (voter) into users table *** WRITE A SEPERATE FUNCTION FOR THIS ***
+    // Insert user (voter) into users table
     db.query(`
     INSERT INTO users(name,email)
     VALUES($1,$2)
     RETURNING *`,[req.body.user_name,req.body.user_email])
       .then((resUsers) => {
-      // Insert user's votes into the votes table
-
-        for (let option of arrOptions) {
+        // Insert user's votes into the votes table
+        for (let option of arrOptions[0]) {
+          console.log('poll_id:',req.params.poll_id, 'option_id:', option.id, 'user_id:', resUsers.rows[0].id, 'rank', option.rank);
           db.query(`
         INSERT INTO votes(poll_id,option_id, user_id, rank)
         VALUES($1,$2,$3,$4) RETURNING * `,[req.params.poll_id, option.id, resUsers.rows[0].id, option.rank]);
-          console.log("vote submited!");
         }
+        //ADD MAIL GUN FUNCTION
+        res.redirect("/polls/voted");
       });
   });
+
+
+  // route to list all polls
+  router.get("/voted", (req, res) => {
+    res.send("Thanks for voting!")
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+
+
 
   return router;
 
