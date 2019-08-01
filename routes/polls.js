@@ -15,7 +15,7 @@ module.exports = (db) => {
   // Helper Function to get PollId from voter URL
   const getPollId = function(voter_URL) {
     return db.query(
-      `SELECT id
+      `SELECT id, title
       FROM polls
       WHERE voter_url = $1;`, [voter_URL]
     );
@@ -194,13 +194,14 @@ module.exports = (db) => {
         getPollId(req.params.voter_url)
           .then(result => {
             let poll_id = result.rows[0].id;
+            let poll_title = result.rows[0].title
             db.query(`
           SELECT options.name, options.id, options.poll_id
           FROM options
           WHERE options.poll_id = $1;`,[poll_id])
               .then(data => {
                 const options = data.rows;
-                let templateVars = {poll_options: options};
+                let templateVars = {poll_options: options, title: poll_title};
                 console.log(templateVars);
                 res.render('voter_form',templateVars);
               });

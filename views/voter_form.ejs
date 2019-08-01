@@ -15,12 +15,12 @@
   </head>
   <body>
       <%  include ./partials/_header %>
-    <div class="title">  
+    <div class="title">
     <h1>Voter Form</h1>
   </div>
     <div>
       <header>
-       <h3>Please Cast Your Vote!</h3>
+       <h3><%= title %></h3>
       </header>
       <div>
         <form style="flex-wrap: wrap" class=".vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
