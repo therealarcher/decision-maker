@@ -131,7 +131,7 @@ module.exports = (db) => {
             let data = mailgunHelperFunctions.generatePollCreationEmail(voterUrl, adminUrl, req.body.user_email);
             mg.messages().send(data, (error, body) => {
             });
-            response.redirect(`/polls/admin/${adminUrl}`);
+            response.redirect('/polls/created');
           })
           .catch(err => {
             console.log(err)
@@ -143,8 +143,8 @@ module.exports = (db) => {
 
 
   // route to show admin & voter links after poll creation
-  router.get("/show/:id", (req, res) => {
-    res.send("Links Here!");
+  router.get("/created", (req, res) => {
+    res.render("poll_created");
   });
 
   // GET route to show poll admin results, THIS RETURNS JSON ONLY
@@ -252,8 +252,6 @@ module.exports = (db) => {
         res.send("ERROR! YOU HAVE ALREADY VOTED");
       }
     });
-    // Insert user (voter) into users table
-
   });
 
   // Route Handler for landing page that voter is redirected to after they vote
