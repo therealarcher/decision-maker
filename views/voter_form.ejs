@@ -11,7 +11,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    
+
   </head>
   <body>
     <h1>Voter Form</h1>
@@ -23,7 +23,7 @@
         <form style="flex-wrap: wrap" class=".vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
         Name: <input type="text" name="user_name"/>
         Email: <input type="text" name="user_email"/>
-      </form>
+
         <p>Rank your choices below:</p>
         <table class="one" style="display:flexbox">
           <tbody>
@@ -31,47 +31,50 @@
           <td class="ui-widget-content" id="draggable"><%=key.name%></td>
           <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
           <input type="hidden" name="ranks[<%=key.id %>][id]" value="<%=key.id%>">
-          <% }; %>
+          <input id="<%=key.name%>"" type="hidden" name="ranks[<%=key.id %>][rank]" value="0"> <!--need to set value equal to rank-->
+           <% }; %>
         </tbody>
         </table>
-        <!-- <input type="text" name="ranks[<%=key.id %>][rank]"> -->
+        <button type="submit">Vote</button>
+      </form>
+
         <br>
-        <button>Vote</button>
+
         <button id="reset">Reset</button>
-       
+
         <ul id="droppable"class="droptrue ui-sortable">
         </ul>
-    
+
         </div>
     </div>
   </div>
 </body>
 </html>
-         
-          
-            
-         
-        
-              
-             
-           
-              
-            
-              
-                
-                
-                
-                
-                
-                
-                
-              
-                
-                
-                           
-                
-                   
-            
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
