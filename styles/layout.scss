@@ -4,25 +4,57 @@ body {
   background-color: white;
 
   h1 {
-    color: #244751;
+    color: #28a745;
+    text-align: center;
+    font-family: 'Skranji', cursive;
+    font-weight: 700;
+    font-size: 48pt;
+    margin-top: 1em;
   }
 
+  h2 {
+    color: #28a745;
+    text-align: center;
+    font-family: 'Skranji', cursive;
+    font-weight: 700;
+    font-size: 28pt;
+    margin-bottom: 1em;
+  }
+
+  .fa-minus-circle {
+    color: #FF4A47;
+  }
+
+  .additional-field {
+    display:inline;
+  }
   #home-logo {
     color: #28a745 ;
-    display: flex;
-    justify-content: center;
+    //display: inline-block;
+    //justify-content: center;
     font-size: 10em;
-    size: icon;
-
+    animation: animate 1.5s infinite linear;
   }
 
-
-  #options {
-    margin-bottom: 22px;
+  @keyframes animate {
+    0% {
+      transform: translate(0%, 0);
+    }
+    25% {
+      transform: translate(-5%, 3%);
+    }
+    50% {
+      transform: translate(0%, 0);
+    }
+    75% {
+      transform: translate(5%, -3%);
+    }
   }
+
   #whole-form {
     margin: 5% 20% 5% 20%;
     background-color: #D8D8D8;
+    display: none;
   }
 
   #poll-submit-button {

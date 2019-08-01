@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Create a new Poll</title>
+    <title>HOME</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Skranji:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/form_slider.js"></script>
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
   </head>
 
@@ -22,8 +26,10 @@
         <!-- Default form register -->
 
         <h1> WELCOME </h1>
+        <h2> Click to have your mind blown </h2>
+        <div style='text-align:center'>
         <i id="home-logo" class="fas fa-poll-h icon-large"></i>
-
+        </div>
 
         <form id="whole-form" class="text-center border border-light p-5" method="POST" action="/polls">
 
@@ -67,7 +73,7 @@
                   e.preventDefault();
                   if(x < maxFields) {
                       x++;
-                      $(wrapper).append(`<div><label for="Poll Option" name="option"/><input class="form-control" name="option_${x}" type="text"/><a href="#" class="remove_field"><i class="fas fa-minus-circle"></i></a></div>`);
+                      $(wrapper).append(`<div class="additional-field"><label for="Poll Option" name="option"/><input class="form-control" name="option_${x}" type="text"/><a href="#" class="remove_field"><i class="fas fa-minus-circle"></i></a></div>`);
                   };
               })
               $(wrapper).on("click",".remove_field", function(e){
@@ -76,9 +82,9 @@
             });
             </script>
             <div class="input_fields_wrap"><label>Poll Option:</label>
+              <button id="plus-button" type="button" class="add_field_button"><i class="fas fa-plus-circle"></i></button>
               <input id="options" class="form-control" name="option" required="required" type="text" /></div>
             </div>
-              <button id="plus-button" type="button" class="add_field_button"><i class="fas fa-plus-circle"></i></button>
 
           <!-- Sign up button -->
           <button id="poll-submit-button" class="btn btn-info my-4 btn-block" type="submit">Submit</button>
