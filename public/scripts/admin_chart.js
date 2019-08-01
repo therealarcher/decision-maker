@@ -41,7 +41,12 @@ const drawChart = function() {
     //Set chart options
     const options = {'title': polls[0].title, // FROM AJAX QUERY
       'width':500,
-      'height':300};
+      'height':300,
+      animation: {
+        duration: 1000,
+        easing: 'out',
+        startup: true
+    }};
 
     //Instantiate and draw our chart, passing in some options.
     const chart = new google.visualization.BarChart(document.getElementById('chart_div'));
