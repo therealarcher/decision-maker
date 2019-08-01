@@ -1,0 +1,41 @@
+#draggable {
+    width: 100px; 
+    height: 100px; 
+    padding: 0.5em; 
+    float: left; 
+    margin: 10px 10px 10px 0; 
+}
+
+#droppable {
+    width: 150px; 
+    height: 150px; 
+    padding: 0.5em; 
+    float: left; 
+    margin: 10px;
+}
+
+td  {
+    border: 1px solid #0088dd;
+    padding: 15px;}
+table.one {
+    empty-cells: show;}
+table.two {
+empty-cells: hide;}
+
+#sortable { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    width: 60%; 
+}
+#sortable li { 
+    margin: 0 3px 3px 3px; 
+    padding: 0.4em; 
+    padding-left: 1.5em; 
+    font-size: 1.4em; 
+    height: 18px; 
+}
+#sortable li span { 
+    position: absolute; 
+    margin-left: -1.3em; 
+}
