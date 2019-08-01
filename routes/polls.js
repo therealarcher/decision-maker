@@ -256,7 +256,7 @@ module.exports = (db) => {
 
   // Route Handler for landing page that voter is redirected to after they vote
   router.get("/voted", (req, res) => {
-    res.send("Thanks for voting!");
+    res.render('voted');
   });
 
   return router;
