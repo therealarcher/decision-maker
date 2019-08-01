@@ -55,5 +55,6 @@ google.charts.load('current', {'packages':['corechart']});
 //Set a callback to run when the Google Visualization API is loaded.
 //WILL THIS RUN drawChart if it's in another file?
 google.charts.setOnLoadCallback(drawChart);
+document.getElementById("refresh-chart").addEventListener("click", drawChart);
 
 

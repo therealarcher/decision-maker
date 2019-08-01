@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
+    <!-- Load Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-  <!--Load the AJAX  & SCRIPT FILE FOR CHART API-->
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-   <script type="module" src="/scripts/admin_chart.js"></script>
+    <!--Load the AJAX  & SCRIPT FILE FOR CHART API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!--Local Script File-->
+    <script type="module" src="/scripts/admin_chart.js"></script>
+
   </head>
 
   <body>
     <h1>Results of POLL</h1>
     <div id="chart_div"></div>
+    <button id="refresh-chart"><i class="fas fa-redo-alt"></i></button>
   </body>
 </html>
