@@ -210,7 +210,7 @@ module.exports = (db) => {
 
   // Route handler for when a user submits their vote
   router.post("/:poll_id/vote", (req, res) => {
-
+    console.log(req.body);
 
     let arrOptions = Object.values(req.body)[3];
     let poll_id = Object.values(req.body)[2];

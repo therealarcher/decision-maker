@@ -15,7 +15,10 @@ $(document).ready(function() {
       choiceOrder.push(ui.draggable[0].innerHTML);
       console.log($(choiceOrder));
       //ASSIGN VALUE OF RANK TO INPUT FIELD
-      $(`#${ui.draggable[0].innerHTML}`).attr("value",choiceOrder.length);
+      let id = ui.draggable[0].innerHTML.split(" ").join("");
+      console.log(id);
+
+      $(`#${id}`).attr("value",choiceOrder.length);
       console.log(choiceOrder.length);
 
       $('#droppable').empty();

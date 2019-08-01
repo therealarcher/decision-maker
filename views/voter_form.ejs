@@ -25,13 +25,14 @@
         Email: <input type="text" name="user_email"/>
 
         <p>Rank your choices below:</p>
+        <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
         <table class="one" style="display:flexbox">
           <tbody>
         <% for (key of poll_options) { %>
+          <% let id= key.name.split(" ").join('') %>
           <td class="ui-widget-content" id="draggable"><%=key.name%></td>
-          <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
           <input type="hidden" name="ranks[<%=key.id %>][id]" value="<%=key.id%>">
-          <input id="<%=key.name%>"" type="hidden" name="ranks[<%=key.id %>][rank]" value="0"> <!--need to set value equal to rank-->
+          <input id="<%=id%>"" type="hidden" name="ranks[<%=key.id %>][rank]" value="0"> <!--need to set value equal to rank-->
            <% }; %>
         </tbody>
         </table>
