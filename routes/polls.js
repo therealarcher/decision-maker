@@ -102,7 +102,7 @@ module.exports = (db) => {
   // Route Handler to create a new poll
   router.post("/", (req, response) => {
 
-    let arrOptions = Object.values(req.body).splice(5);
+    let arrOptions = Object.values(req.body).splice(4);
     console.log("request body", req.body);
     let voterUrl = generateRandomString();
     let adminUrl = generateRandomString();
