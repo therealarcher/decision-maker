@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Voter Form</title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -10,7 +10,10 @@
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
   </head>
   <body>
+      <%  include ./partials/_header %>
+    <div class="title">  
     <h1>Voter Form</h1>
+  </div>
     <div>
         <article>
             <header>
@@ -18,9 +21,9 @@
             </header>
             <div>
 
-                <form class=".vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
-                Name: <input type="text" name="user_name"/>
-                Email: <input type="text" name="user_email"/>
+                <form class="vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
+                Name: <input class="formName" type="text" name="user_name"/>
+                Email: <input class="formEmail" type="text" name="user_email"/>
                 <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
                 <p>Rank your choices below:</p>
                 <% for (key of poll_options) { %>
