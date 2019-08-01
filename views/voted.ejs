@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/voted.css" type="text/css" />
 
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -24,11 +25,11 @@
 
         <!-- ********************************************************************************* -->
         <!-- Default form register -->
-        <img src= "/images/feedback.png" id="voted_img">
-        <h1> Thanks for voting! </h1>
 
-        <div style='text-align:center'><!-- Sign up button -->
-          <button id="poll-submit-button" class="btn btn-info my-4 btn-block" type="submit">Submit</button></div>
 
+        <div id="voted_container" style='text-align:center'><!-- Sign up button -->
+          <img src= "/images/feedback.png" id="voted_img  ">
+          <h2 id= "voted_title"> Thanks for voting! </h2>
+          <h5 id= "voted_subtitle">The poll administrator will notify you when a consensus has been reached. In the meantime, why not create a poll of your own? :) </h5>
       </body>
     </html>
