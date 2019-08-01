@@ -103,6 +103,7 @@ module.exports = (db) => {
   router.post("/", (req, response) => {
 
     let arrOptions = Object.values(req.body).splice(5);
+    console.log("request body", req.body);
     let voterUrl = generateRandomString();
     let adminUrl = generateRandomString();
 
@@ -213,6 +214,7 @@ module.exports = (db) => {
 
 
     let arrOptions = Object.values(req.body)[3];
+    console.log(arrOptions);
     let poll_id = Object.values(req.body)[2];
 
     hasAlreadyVoted(req.body.user_email, poll_id,).then((response) => {

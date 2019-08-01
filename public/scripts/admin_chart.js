@@ -40,13 +40,28 @@ const drawChart = function() {
 
     //Set chart options
     const options = {'title': polls[0].title, // FROM AJAX QUERY
-      'width':500,
+      'width':600,
       'height':300,
+      colors: ['#3066BE'],
       animation: {
         duration: 1000,
         easing: 'out',
         startup: true
-    }};
+      },
+      legend: {position: 'none'},
+      hAxis: {
+        gridlines: {
+            color: 'transparent'
+        },
+        textPosition: 'none'
+      },
+      tooltip: {
+        textStyle: {
+          fontSize: 16
+        }
+      }
+    };
+
 
     //Instantiate and draw our chart, passing in some options.
     const chart = new google.visualization.BarChart(document.getElementById('chart_div'));
