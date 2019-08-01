@@ -59,6 +59,12 @@ const drawChart = function() {
         textStyle: {
           fontSize: 16
         }
+      },
+      vAxis : {
+        textStyle : {
+            fontSize: 24,
+            fontName: 'Skranji'
+        }
       }
     };
 
