@@ -16,19 +16,9 @@ const drawChart = function() {
     let polls = json.polls;
     console.log(polls);
 
-    // Put data in correct format to feed it into the data table
-    // let chartCols = [];
-    // for (let option of polls) {
-    //   let colArr = [];
-    //   colArr.push(option.name);
-    //   colArr.push(parseInt(option.count));
-    //   chartCols.push(colArr);
-    // }
-    // console.log(chartCols);
-
     //assigning border function to variable
     const chartCols = borda(polls);
-    console.log(chartCols);
+    console.log('chartcols:',chartCols);
 
 
 

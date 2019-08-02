@@ -33,6 +33,17 @@ module.exports = (db) => {
     });
   };
 
+  // Helper Function to get poll name given admin-url
+  const getPollName = function(admin_url) {
+    return db.query(
+      `SELECT title
+        FROM polls
+        WHERE admin_url = $1;`, [admin_url]
+    ).then((res) => {
+      return res.rows;
+    });
+  };
+
   // Helper Function to get poll information given the poll Id (url type is either admin_url or voter_url)
   const checkAdminUrlExists = function(urlchecking) {
     console.log(urlchecking);
@@ -58,6 +69,8 @@ module.exports = (db) => {
       return res.rows;
     });
   };
+
+
 
   // Helper Function to check if a user has already voted
   const hasAlreadyVoted = function(email, poll_id) {
@@ -114,7 +127,7 @@ module.exports = (db) => {
     RETURNING *`,[req.body.user_name,req.body.user_email])
       .then((resUsers) => {
 
-      // Insert poll data into the polls table
+        // Insert poll data into the polls table
         db.query(`
         INSERT INTO polls(user_id,title,voter_url,admin_url,end_date)
         VALUES($1,$2,$3,$4,$5) RETURNING * `,[resUsers.rows[0].id,req.body.poll_title,voterUrl,adminUrl,req.body.poll_end_date])
@@ -176,7 +189,12 @@ module.exports = (db) => {
       if (response.length === 0) {
         res.render('error_template');
       } else {
-        res.render('admin_url.ejs');
+        getPollName(adminUrl)
+          .then(result => {
+            console.log(result);
+            let pollName = result[0].title;
+            res.render('admin_url.ejs', {poll_name: pollName});
+          });
       }
     });
 
