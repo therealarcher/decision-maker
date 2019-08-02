@@ -262,13 +262,12 @@ module.exports = (db) => {
               mg.messages().send(data, (error, body) => {
                 console.log(body);
                 console.log(error);
-              //  console.log(data);
               });
             });
           });
         res.redirect("/polls/voted");
       } else {
-        res.send("ERROR! YOU HAVE ALREADY VOTED");
+        res.redirect("polls/user_error");
       }
     });
   });
@@ -277,6 +276,11 @@ module.exports = (db) => {
   router.get("/voted", (req, res) => {
     res.render('voted');
   });
+
+    // Route Handler for landing page that voter is redirected to after they vote
+    router.get("/user_error", (req, res) => {
+      res.render('user_error');
+    });
 
   return router;
 
