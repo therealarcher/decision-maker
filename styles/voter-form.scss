@@ -19,6 +19,10 @@
   margin: 0 30% 0 30%;
 }
 
+p {
+  text-align: center;
+}
+
 td {
 
     border: 2px solid #28a745;
@@ -33,6 +37,11 @@ td {
 h3 {
   text-align:center;
   padding-bottom: 1em;
+  color: black;
+  font-family: 'Skranji', cursive;
+  font-weight: 700;
+  font-size: 36pt;
+  margin-top: 1em;
 }
 
 table.one {
@@ -42,7 +51,8 @@ table.one {
 }
 
 table.two {
-empty-cells: hide;}
+empty-cells: hide;
+}
 
 #sortable {
     list-style-type: none;
