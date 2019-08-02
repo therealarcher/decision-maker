@@ -41,21 +41,47 @@ body {
 }
 
  .vote {
-  align-content: center;
-  padding: 1em;
-  border-style: solid;
-  border-color: gray
+   margin:auto;
+   width: 70%;
+  background-color: #EAEAEC;
+   flex-wrap: wrap;
+   align-content: center;
+   padding: 1em;
+   border-style: solid;
+   border-color: gray
+   
    
 }
 
+// .rankList {
+//   margin: 0 auto;
 
-input.formName {
+//   border-style: solid;
+//   height: 225px;
+//   width: 400px;
+
+// }
+
+#formInput {
+ text-align: center;
+}
+
+#bottom-container {
+text-align: center;
+
+}
+
+#droppable {
+  display:block;
+  min-height: 150px;
+  width: 70%;
+  border-style: solid;
+  border-color: gray;
+  margin: 20%;
   align-content: center;
 }
 
-input.formEmail {
-  align-content: center;
+.option {
+  border-style: solid;
+  border-color:gray;
 }
-
-
-  

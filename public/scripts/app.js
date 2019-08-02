@@ -3,7 +3,9 @@ let choiceOrder = [];
 
 $(document).ready(function() {
 
-  $('tbody > tr > #draggable').draggable();
+  $('tbody > tr > #draggable').draggable({
+    revert:true
+  });
 
   $("#droppable" ).droppable({
     drop: function(event,ui) {
@@ -24,16 +26,17 @@ $(document).ready(function() {
       $('#droppable').empty();
       $(draggable).draggable({
         revert: true
-
       });
       $(draggable).hide();
+      
 
 
 
       for (choice of choiceOrder) {
-        $choice = `<li id="${choice}">${choice}</li>`;
+        $choice = `<div class="option"><p id="${choice}">${choice}</p></div>`;
         if (choiceOrder.filter(word => word === choice)[0].toString()!== $(this)){
           $('#droppable').append($choice);
+          $("p").last().addClass("optionDropped")
         }
         $(console.log(ui.draggable[0].innerHTML));
         $(console.log($($choice).attr("id")));
