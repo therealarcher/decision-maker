@@ -267,7 +267,7 @@ module.exports = (db) => {
           });
         res.redirect("/polls/voted");
       } else {
-        res.redirect("polls/user_error");
+        res.redirect("/polls/user_error");
       }
     });
   });
