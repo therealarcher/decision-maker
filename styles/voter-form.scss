@@ -1,24 +1,28 @@
 #draggable {
     width: 100px; 
     height: 100px; 
-    padding: 0.5em; 
+    padding: 1rem;; 
     float: left; 
     margin: 10px 10px 10px 0; 
 }
 
 #droppable {
     width: 150px; 
-    height: 150px; 
     padding: 0.5em; 
-    float: left; 
-    margin: 10px;
+    margin: 0 auto;
+}
+   
+td  {
+    
+    border: 2px solid #28a745;
+    padding:2em;
+}
+     
+table.one {
+    empty-cells: show;
 }
 
-td  {
-    border: 1px solid #0088dd;
-    padding: 15px;}
-table.one {
-    empty-cells: show;}
+
 table.two {
 empty-cells: hide;}
 
@@ -38,4 +42,17 @@ empty-cells: hide;}
 #sortable li span { 
     position: absolute; 
     margin-left: -1.3em; 
+}
+#voteButton {
+    display: block;
+}
+#div-reset {
+    text-align: center;
+}
+.optionDropped {
+background-color:yellowgreen;
+
+}
+.rankTable {
+ text-align: center;   
 }

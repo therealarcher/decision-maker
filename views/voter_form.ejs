@@ -24,11 +24,15 @@
       </header>
       <div>
         <form style="flex-wrap: wrap" class=".vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
+      <div id="formInput">
         Name: <input type="text" name="user_name"/>
         Email: <input type="text" name="user_email"/>
+      </div>
 
-        <p>Rank your choices below:</p>
+        <p></p>
         <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
+        <div class="vote">
+        <div>
         <table class="one" style="display:flexbox">
           <tbody>
         <% for (key of poll_options) { %>
@@ -39,16 +43,24 @@
            <% }; %>
         </tbody>
         </table>
+      </div>
+        <div id="voteButton">
         <button type="submit">Vote</button>
+      </div>
       </form>
-
+    </div>
         <br>
 
-        <button id="reset">Reset</button>
-
-        <ul id="droppable"class="droptrue ui-sortable">
-        </ul>
-
+        
+        <div class="rankTable">
+      
+        <li id="droppable"class="droptrue ui-sortable">
+        </li>
+     
+    </div>
+    <div id="div-reset">
+    <button id="reset">Reset</button>
+    </div>
         </div>
     </div>
   </div>
