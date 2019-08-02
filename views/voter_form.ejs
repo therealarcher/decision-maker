@@ -16,18 +16,23 @@
   <body>
       <%  include ./partials/_header %>
     <div class="title">
-    <h1>Voter Form</h1>
+    <h1></h1>
   </div>
     <div>
       <header>
        <h3><%= title %></h3>
       </header>
-      <div>
+    </div>
         <form style="flex-wrap: wrap" class=".vote" method="POST" action="/polls/<%=poll_options[0].poll_id%>/vote">
+
       <div id="formInput">
-        Name: <input type="text" name="user_name"/>
-        Email: <input type="text" name="user_email"/>
+        <!-- Name -->
+        <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Your name" name="user_name">
+        <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail" name="user_email">
       </div>
+        <!-- Name: <input type="text" name="user_name"/> -->
+        <!-- Email: <input type="text" name="user_email"/> -->
+
 
         <p></p>
         <input type="hidden" name="poll_id" value="<%=poll_options[0].poll_id%>">
@@ -44,30 +49,26 @@
         </tbody>
         </table>
       </div>
-        <div id="voteButton">
-        <button type="submit">Vote</button>
+      <div id="voteButton">
+        <button type="submit" style="font-family: 'Skranji', cursive; font-weight: 400" class="btn btn-outline-dark">Vote</button>
       </div>
       </form>
     </div>
         <br>
 
-        
-        <div class="rankTable">
-      
+
+    <div class="rankTable">
         <li id="droppable"class="droptrue ui-sortable">
         </li>
-     
     </div>
     <div id="div-reset">
-    <button id="reset">Reset</button>
+      <button id="reset" type="submit" style="font-family: 'Skranji', cursive; font-weight: 400" class="btn btn-outline-dark">Reset</button>
     </div>
         </div>
     </div>
   </div>
 </body>
 </html>
-
-
 
 
 

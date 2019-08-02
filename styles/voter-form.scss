@@ -1,58 +1,95 @@
 #draggable {
-    width: 100px; 
-    height: 100px; 
-    padding: 1rem;; 
-    float: left; 
-    margin: 10px 10px 10px 0; 
+    width: 150px;
+    height: 100px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    float: left;
+    margin: 10px 10px 10px 0;
 }
 
 #droppable {
-    width: 150px; 
-    padding: 0.5em; 
+    width: 200px;
+    padding: 0.5em;
     margin: 0 auto;
-}
-   
-td  {
-    
-    border: 2px solid #28a745;
-    padding:2em;
-}
-     
-table.one {
-    empty-cells: show;
+    border-radius: 15px;
+    background-color: #eaeaec;
 }
 
+#formInput {
+  margin: 0 30% 0 30%;
+}
+
+td {
+
+    border: 2px solid #28a745;
+    //padding:1em;
+    border-radius: 15px;
+    text-align: center;
+    padding-top: 3em;
+    padding-bottom: 1em;
+
+}
+
+h3 {
+  text-align:center;
+  padding-bottom: 1em;
+}
+
+table.one {
+    empty-cells: show;
+    display: flex;
+    justify-content: space-around;
+}
 
 table.two {
 empty-cells: hide;}
 
-#sortable { 
-    list-style-type: none; 
-    margin: 0; 
-    padding: 0; 
-    width: 60%; 
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
 }
-#sortable li { 
-    margin: 0 3px 3px 3px; 
-    padding: 0.4em; 
-    padding-left: 1.5em; 
-    font-size: 1.4em; 
-    height: 18px; 
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+    height: 12px;
 }
-#sortable li span { 
-    position: absolute; 
-    margin-left: -1.3em; 
+#sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
 }
 #voteButton {
     display: block;
+    text-align: center;
+  }
+
+  .btn-outline-dark {
+    background-color: white;
+
 }
 #div-reset {
     text-align: center;
+    margin: 1em 0 2em 0;
+
 }
 .optionDropped {
-background-color:yellowgreen;
+border-radius: 12px;
+color: white;
+}
+
+.option {
+  border-radius: 12px;
+  background-color: #28a745;
+  margin: 4px;
 
 }
 .rankTable {
- text-align: center;   
+ text-align: center;
+}
+
+.vote {
+  border-radius: 12px;
 }
