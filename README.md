@@ -2,6 +2,31 @@
 
 An application that allows groups to vote on a preferred choice. Results are tabulated using a weighted average method (Borda count). Emails are sent out to the creator and participating members of the poll using mailgun API.
 
+## Screenshots
+
+main page
+
+![main page](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-main.jpeg)
+
+Poll form
+
+![poll form](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-poll_form.jpeg)
+
+Poll created
+![poll created](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-poll_created.jpeg)
+
+email sent out to creater of poll
+
+![email](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-email.jpeg)
+
+Voting form seen by voters
+
+![voting form](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-voting_form.jpeg)
+
+Poll results graph
+!
+
+
 ## Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
