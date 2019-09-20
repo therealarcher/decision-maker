@@ -12,7 +12,7 @@ Poll form
 
 ![poll form](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-poll_form.jpeg)
 
-Voting form seen by voters
+Voting form seen by voters (drag and drop)
 
 ![voting form](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-voting_form.jpeg)
 
