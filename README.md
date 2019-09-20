@@ -12,19 +12,12 @@ Poll form
 
 ![poll form](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-poll_form.jpeg)
 
-Poll created
-![poll created](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-poll_created.jpeg)
-
-email sent out to creater of poll
-
-![email](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-email.jpeg)
-
 Voting form seen by voters
 
 ![voting form](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-voting_form.jpeg)
 
-Poll results graph
-!
+Poll results chart
+![poll results](https://github.com/therealarcher/decision-maker/blob/master/public/images/decidr-poll_results.jpeg)
 
 
 ## Getting Started
